@@ -18,7 +18,9 @@
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-bootstrap-select.esm.js",
     "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-bootstrap-select.min.js"
   },
-  "dependencies": {},
+  "dependencies": {
+    "vue-clickaway": "^2.2.2"
+  },
   "devDependencies": {
     "minimist": "^1.2.0",
     "rollup": "^0.66.2",
