@@ -1,16 +1,16 @@
 <template>
     <div
         v-on-clickaway="hideDropdown"
-        class="z-select-container">
+        class="v-select">
         <div
             @click="show = !show"
-            class="z-select-toggle">
+            class="v-select-toggle">
             <div>{{ selectedValue ? selectedValue[textProp] : defaultValue }}</div>
             <div class="arrow-down"></div>
         </div>
         <div
             v-show="show"
-            class="z-dropdown-container">
+            class="v-dropdown-container">
             <ul>
                 <li
                     v-if="search"
@@ -24,18 +24,18 @@
                 </li>
                 <li
                     v-show="search && filteredProps.length === 0"
-                    class="z-select-option">
-                    No hay resultados para: "{{ searchValue }}"
+                    class="v-select-option">
+                    No results found for: "{{ searchValue }}"
                 </li>
                 <li
                     v-if="showDefaultOption"
-                    class="z-select-option disabled default-option">
+                    class="v-select-option disabled default-option">
                     {{ defaultValue }}
                 </li>
                 <li
-                    class="z-select-option"
+                    class="v-select-option"
                     v-for="(item, index) in filteredProps"
-                    :key="`z-select-${index}`"
+                    :key="`v-select-${index}`"
                     @click="handleSelect(item)">
                     {{ item[textProp]}}
                 </li>
@@ -69,7 +69,7 @@ export default {
         },
         defaultValue: {
             type: String,
-            default: 'Seleccione'
+            default: 'Nothing selected'
         },
         search: {
             type: Boolean,
@@ -107,7 +107,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.z-select-container {
+.v-select {
     position: relative;
     width: 100%;
     height: 30px;
@@ -118,15 +118,16 @@ export default {
     color: #212529;
     font-size: 12px;
     transition: background-color, border-color, box-shadow, .15s ease-in-out;
+    font-family: inherit, sans-serif;
     cursor: pointer;
 }
 
-.z-select-container:hover {
+.v-select:hover {
     background-color: #e2e6ea;
     border-color: #dae0e5;
 }
 
-.z-select-toggle {
+.v-select-toggle {
     display: flex;
     justify-content: space-between;
     user-select: none;
@@ -148,7 +149,7 @@ export default {
     border-left: 0.3em solid transparent;
 }
 
-.z-dropdown-container {
+.v-dropdown-container {
     position: absolute;
     width: 100%;
     background: red;
@@ -175,18 +176,18 @@ ul {
     margin: 0px;
 }
 
-.z-select-option {
+.v-select-option {
     line-height: 25px;
     padding: 0.5rem 1.25rem;
     user-select: none;
 }
 
-.z-select-option:hover:not(.default-option) {
+.v-select-option:hover:not(.default-option) {
     text-decoration: none;
     background-color: #f8f9fa;
 }
 
-.z-select-option.disabled {
+.v-select-option.disabled {
     color: #9A9B9B;
 }
 
