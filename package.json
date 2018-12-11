@@ -1,0 +1,31 @@
+{
+  "name": "vue-bootstrap-select",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/vue-bootstrap-select.umd.js",
+  "module": "dist/vue-bootstrap-select.esm.js",
+  "unpkg": "dist/vue-bootstrap-select.min.js",
+  "browser": {
+    "./sfc": "src/vue-bootstrap-select.vue"
+  },
+  "files": [
+    "dist/*",
+    "src/*"
+  ],
+  "scripts": {
+    "build": "npm run build:unpkg & npm run build:es & npm run build:umd",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-bootstrap-select.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-bootstrap-select.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-bootstrap-select.min.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "minimist": "^1.2.0",
+    "rollup": "^0.66.2",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-uglify-es": "0.0.1",
+    "rollup-plugin-vue": "^4.3.0",
+    "vue": "^2.5.16",
+    "vue-template-compiler": "^2.5.16"
+  }
+}
