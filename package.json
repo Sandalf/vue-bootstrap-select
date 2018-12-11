@@ -1,8 +1,16 @@
 {
   "name": "vue-bootstrap-select",
   "version": "1.0.0",
-  "description": "",
+  "description": "A vue version of bootstrap select",
+  "license": "MIT",
+  "repository": "alfsnd/tiny",
   "main": "dist/vue-bootstrap-select.umd.js",
+  "keywords": [
+    "tiny",
+    "npm",
+    "package",
+    "alfsnd"
+  ],
   "module": "dist/vue-bootstrap-select.esm.js",
   "unpkg": "dist/vue-bootstrap-select.min.js",
   "browser": {
