@@ -1,2 +1,2 @@
-# vue-select-picker
+# vue-bootstrap-select
 A vue version of bootstrap select
