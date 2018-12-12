@@ -1,3 +1,7 @@
+
+[![AUR version](https://img.shields.io/npm/v/@alfsnd/vue-bootstrap-select.svg)](https://github.com/Sandalf/vue-bootstrap-select)
+[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/react.svg)](https://github.com/Sandalf/vue-bootstrap-select)
+
 # @alfsnd/vue-bootstrap-select
 A vue version of [bootstrap select](https://github.com/snapappointments/bootstrap-select/)
 
@@ -15,7 +19,6 @@ import VSelect from '@alfsnd/vue-bootstrap-select'
 export default {
   name: 'app',
   components: {
-    HelloWorld,
     VSelect
   }
 }
