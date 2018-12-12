@@ -24,7 +24,7 @@ export default {
 ```html
 <template>
   <div id="app">
-    <VSelect/>
+    <v-select/>
   </div>
 </template>
 ```
