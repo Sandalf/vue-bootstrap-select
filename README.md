@@ -27,7 +27,7 @@ export default {
 ```html
 <template>
   <div id="app">
-    <v-select/>
+    <v-select :items="[{value: 1, text: 'Item 1'}, {value: 2, text: 'Item 2'}]" @input="handleInput($event)"/>
   </div>
 </template>
 ```

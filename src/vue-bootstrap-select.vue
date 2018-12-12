@@ -5,7 +5,9 @@
         <div
             @click="show = !show"
             class="v-select-toggle">
-            <div>{{ selectedValue ? selectedValue[textProp] : defaultValue }}</div>
+            <div>
+                {{ selectedValue ? selectedValue[textProp] : defaultValue }}
+            </div>
             <div class="arrow-down"></div>
         </div>
         <div
@@ -16,7 +18,7 @@
                     v-if="search"
                     class="search-container">
                     <input
-                        placeholder="Buscar"
+                        placeholder="Search"
                         class="form-control"
                         type="text"
                         v-model="searchValue"
@@ -24,18 +26,19 @@
                 </li>
                 <li
                     v-show="search && filteredProps.length === 0"
-                    class="v-select-option">
+                    class="v-dropdown-item">
                     No results found for: "{{ searchValue }}"
                 </li>
                 <li
                     v-if="showDefaultOption"
-                    class="v-select-option disabled default-option">
+                    class="v-dropdown-item disabled default-option">
                     {{ defaultValue }}
                 </li>
                 <li
-                    class="v-select-option"
                     v-for="(item, index) in filteredProps"
                     :key="`v-select-${index}`"
+                    class="v-dropdown-item"
+                    :class="{'selected' : item[valueProp] === selectedValue[valueProp]}"
                     @click="handleSelect(item)">
                     {{ item[textProp]}}
                 </li>
@@ -161,7 +164,7 @@ export default {
     background-color: #fff;
     background-clip: padding-box;
     border-radius: 0.25rem;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0,0,0,.15);
     z-index: 1000;
 }
 
@@ -176,19 +179,24 @@ ul {
     margin: 0px;
 }
 
-.v-select-option {
+.v-dropdown-item {
     line-height: 25px;
     padding: 0.5rem 1.25rem;
     user-select: none;
 }
 
-.v-select-option:hover:not(.default-option) {
+.v-dropdown-item:hover:not(.default-option) {
     text-decoration: none;
     background-color: #f8f9fa;
 }
 
-.v-select-option.disabled {
+.v-dropdown-item.disabled {
     color: #9A9B9B;
+}
+
+.v-dropdown-item.selected {
+    background-color: #007bff;
+    color: #fff;
 }
 
 .search-container {
