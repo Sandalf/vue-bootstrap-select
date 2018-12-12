@@ -1,6 +1,6 @@
 {
   "name": "@alfsnd/vue-bootstrap-select",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A vue version of bootstrap select",
   "license": "MIT",
   "repository": "alfsnd/vue-bootstrap-select",
@@ -8,7 +8,10 @@
     "tiny",
     "npm",
     "package",
-    "alfsnd"
+    "alfsnd",
+    "bootstrap",
+    "select",
+    "vue"
   ],
   "main": "dist/vue-bootstrap-select.umd.js",
   "module": "dist/vue-bootstrap-select.esm.js",
