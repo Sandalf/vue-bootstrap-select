@@ -38,7 +38,7 @@
                     v-for="(item, index) in filteredProps"
                     :key="`v-select-${index}`"
                     class="v-dropdown-item"
-                    :class="{'selected' : item[valueProp] === selectedValue[valueProp]}"
+                    :class="{'selected' : selectedValue && item[valueProp] === selectedValue[valueProp]}"
                     @click="handleSelect(item)">
                     {{ item[textProp]}}
                 </li>
