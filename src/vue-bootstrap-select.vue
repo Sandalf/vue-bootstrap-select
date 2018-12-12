@@ -51,7 +51,7 @@
 import {mixin as clickaway} from 'vue-clickaway';
 
 export default {
-    name: 'ZSelect',
+    name: 'VSelect',
     mixins: [clickaway],
     props: {
         items: {
