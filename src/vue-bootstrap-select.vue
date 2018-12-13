@@ -56,7 +56,10 @@ export default {
     props: {
         items: {
             type: Array,
-            default: () => []
+            default: () => [
+                {value: 0, text: 'Hoy'},
+                {value: 1, text: 'Mañana'}
+            ]
         },
         textProp: {
             type: String,
@@ -195,6 +198,11 @@ ul {
 }
 
 .v-dropdown-item.selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.v-dropdown-item.selected:hover {
     background-color: #007bff;
     color: #fff;
 }
