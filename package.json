@@ -3,7 +3,7 @@
   "version": "0.0.9",
   "description": "A vue version of bootstrap select",
   "license": "MIT",
-  "repository": "alfsnd/vue-bootstrap-select",
+  "repository": "Sandalf/vue-bootstrap-select",
   "keywords": [
     "tiny",
     "npm",
