@@ -102,7 +102,7 @@ export default {
         handleSelect(item) {
             this.selectedValue = item;
             this.hideDropdown();
-            this.$emit('input', item[this.valueProp]);
+            this.$emit('input', item);
         },
         hideDropdown() {
             this.show = false;
