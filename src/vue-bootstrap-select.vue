@@ -6,7 +6,7 @@
             @click="show = !show"
             class="v-select-toggle">
             <div>
-                {{ selectedValue ? selectedValue[textProp] : defaultValue }}
+                {{ selectedValue ? getOptionLabel(selectedValue) : labelEmpty }}
             </div>
             <div class="arrow-down"></div>
         </div>
@@ -27,20 +27,20 @@
                 <li
                     v-show="search && filteredProps.length === 0"
                     class="v-dropdown-item">
-                    No results found for: "{{ searchValue }}"
+                    {{ labelNotFound }}: "{{ searchValue }}"
                 </li>
                 <li
                     v-if="showDefaultOption"
                     class="v-dropdown-item disabled default-option">
-                    {{ defaultValue }}
+                    {{ labelEmpty }}
                 </li>
                 <li
-                    v-for="(item, index) in filteredProps"
+                    v-for="(option, index) in filteredProps"
                     :key="`v-select-${index}`"
                     class="v-dropdown-item"
-                    :class="{'selected' : selectedValue && item[valueProp] === selectedValue[valueProp]}"
-                    @click="handleSelect(item)">
-                    {{ item[textProp]}}
+                    :class="{'selected' : selectedValue && option === selectedValue}"
+                    @click="handleSelect(option)">
+                    {{ getOptionLabel(option) }}
                 </li>
             </ul>
         </div>
@@ -48,67 +48,85 @@
 </template>
 
 <script>
-import {mixin as clickaway} from 'vue-clickaway';
+import { mixin as clickaway } from "vue-clickaway";
 
 export default {
-    name: 'VSelect',
-    mixins: [clickaway],
-    props: {
-        items: {
-            type: Array,
-            default: () => [
-                {value: 0, text: 'Hoy'},
-                {value: 1, text: 'Mañana'}
-            ]
-        },
-        textProp: {
-            type: String,
-            default: 'text'
-        },
-        valueProp: {
-            type: String,
-            default: 'value'
-        },
-        value: {
-            type: [Object, String],
-            default: null
-        },
-        defaultValue: {
-            type: String,
-            default: 'Nothing selected'
-        },
-        search: {
-            type: Boolean,
-            default: false
-        },
-        showDefaultOption: {
-            type: Boolean,
-            default: false
-        }
+  name: "VSelect",
+  mixins: [clickaway],
+  props: {
+    labelEmpty: {
+      type: String,
+      default: "Nothing selected"
     },
-    data() {
-        return {
-            show: false,
-            selectedValue: this.value,
-            searchValue: ''
-        };
+    labelNotFound: {
+      type: String,
+      default: "No results found for"
     },
-    computed: {
-        filteredProps() {
-            return this.search && this.searchValue.length > 0 ? this.items.filter(item => item[this.textProp].toLowerCase().indexOf(this.searchValue) !== -1) : this.items;
-        }
+    options: {
+      type: Array,
+      default: () => []
     },
-    methods: {
-        handleSelect(item) {
-            this.selectedValue = item;
-            this.hideDropdown();
-            this.$emit('input', item);
-        },
-        hideDropdown() {
-            this.show = false;
-            this.searchValue = '';
-        }
+    search: {
+      type: Boolean,
+      default: false
+    },
+    showDefaultOption: {
+      type: Boolean,
+      default: false
+    },
+    textProp: {
+      type: String,
+      default: "text"
+    },
+    value: {
+      type: [Object, String, Number],
+      default: null
+    },
+    valueProp: {
+      type: String,
+      default: "value"
     }
+  },
+  data() {
+    return {
+      show: false,
+      selectedValue: this.value,
+      searchValue: ""
+    };
+  },
+  computed: {
+    filteredProps() {
+      if (this.search && this.searchValue.length > 0) {
+        return this.options.filter(item => {
+          if (typeof option === "object") {
+            return (
+              item[this.textProp].toLowerCase().indexOf(this.searchValue) !== -1
+            );
+          } else {
+            return item;
+          }
+        });
+      }
+      return this.options;
+    }
+  },
+  methods: {
+    handleSelect(option) {
+      this.selectedValue = option;
+      this.hideDropdown();
+      this.$emit("input", option);
+    },
+    hideDropdown() {
+      this.show = false;
+      this.searchValue = "";
+    },
+    getOptionLabel(option) {
+      if (typeof option === "object") {
+        return option[this.textProp];
+      }
+      return option;
+    }
+  }
 };
 </script>
 
