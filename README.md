@@ -20,6 +20,11 @@ export default {
   name: 'app',
   components: {
     VSelect
+  },
+  data() {
+    return {
+      selectedValue: null
+    };
   }
 }
 ```
@@ -27,7 +32,20 @@ export default {
 ```html
 <template>
   <div id="app">
-    <v-select :items="[{value: 1, text: 'Item 1'}, {value: 2, text: 'Item 2'}]" @input="handleInput($event)"/>
+    <v-select :options="[{value: 1, text: 'Item 1'}, {value: 2, text: 'Item 2'}]" v-model="selectedValue" />
   </div>
 </template>
+```
+
+### Passing options
+
+The `options` prop accepts arrays of strings
+
+```html
+  <v-select :options="['Item 1', 'Item 2']" />
+```
+And arrays of objects
+
+```html
+<v-select :options="[{value: 1, text: 'Item 1'}, {value: 2, text: 'Item 2'}]" />
 ```
