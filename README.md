@@ -5,6 +5,10 @@
 # @alfsnd/vue-bootstrap-select
 A vue version of [bootstrap select](https://github.com/snapappointments/bootstrap-select/)
 
+# Demo
+
+[![Edit Vue Bootstrap Select Demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/ovq821j566)
+
 # Install
 
 ```shell

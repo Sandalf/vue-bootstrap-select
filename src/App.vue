@@ -1,9 +1,23 @@
 <template>
   <div id="app">
     <h2>Array of strings</h2>
-    <VSelect v-model="selectedName"  :options="names"/>
+    <div class="options">
+      <p><b>Options:</b></p>
+      <div>
+        <input type="checkbox" v-model="searchableName">
+        searchable
+      </div>
+    </div>
+    <VSelect v-model="selectedName" :options="names" :searchable="searchableName" />
     <h2>Array of objects</h2>
-    <VSelect v-model="selectedContinent" :options="contients"/>
+    <div class="options">
+      <p><b>Options:</b></p>
+      <div>
+        <input type="checkbox" v-model="searchableContinent">
+        searchable
+      </div>
+    </div>
+    <VSelect v-model="selectedContinent" :options="contients" :searchable="searchableContinent" />
   </div>
 </template>
 
@@ -32,14 +46,16 @@ export default {
         { value: 4, text: "Oceania" }
       ],
       selectedName: null,
-      selectedContinent: null
+      searchableName: false,
+      selectedContinent: null,
+      searchableContinent: false
     };
   }
 };
 </script>
 
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -47,5 +63,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   padding: 2em 1em;
+}
+
+.options {
+  text-align: left;
+  padding: 1em 0em;
 }
 </style>
