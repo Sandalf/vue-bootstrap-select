@@ -2,6 +2,9 @@
   <div
     v-on-clickaway="hideDropdown"
     @keyup.esc="onEscape"
+    @keydown.up.prevent="typeAheadUp"
+    @keydown.down.prevent="typeAheadDown"
+    @keydown.enter.prevent="typeAheadSelect"
     class="v-select">
     <button @click="show = !show" class="v-select-toggle">
       <div>{{ title }}</div>
@@ -19,7 +22,7 @@
       </div>
       <ul>
         <li
-          v-show="searchable && filteredProps.length === 0"
+          v-show="searchable && filteredOptions.length === 0"
           class="v-dropdown-item"
         >{{ labelNotFound }} "{{ searchValue }}"</li>
         <li
@@ -27,11 +30,11 @@
           class="v-dropdown-item disabled default-option"
         >{{ labelTitle }}</li>
         <li
-          v-for="(option, index) in filteredProps"
+          v-for="(option, index) in filteredOptions"
           :key="`v-select-${index}`"
           class="v-dropdown-item"
           :class="{'selected' : isSelectedOption(option, index)}"
-          @click="onSelect(option)"
+          @click="onSelect(option, index)"
         >{{ getOptionLabel(option) }}</li>
       </ul>
     </div>
@@ -96,7 +99,7 @@ export default {
         ? this.getOptionLabel(this.selectedValue)
         : this.labelTitle;
     },
-    filteredProps() {
+    filteredOptions() {
       if (this.searchable && this.searchValue.length > 0) {
         return this.options.filter(item => {
           if (typeof item === "object") {
@@ -116,13 +119,38 @@ export default {
     }
   },
   methods: {
-    onSelect(option) {
+    onSelect(option, index) {
       this.selectedValue = option;
+      this.typeAheadPointer = index;
       this.hideDropdown();
       this.$emit("input", option);
     },
     onEscape() {
       this.hideDropdown();
+    },
+    typeAheadUp() {
+      if (!this.show) {
+        this.show = true;
+      }
+      if (this.typeAheadPointer > 0) {
+        this.typeAheadPointer--;
+      }
+    },
+    typeAheadDown() {
+      if (!this.show) {
+        this.show = true;
+      }
+      if (this.typeAheadPointer < this.filteredOptions.length - 1) {
+        this.typeAheadPointer++;
+      }
+    },
+    typeAheadSelect() {
+      if (this.filteredOptions[this.typeAheadPointer]) {
+        this.onSelect(
+          this.filteredOptions[this.typeAheadPointer],
+          this.typeAheadPointer
+        );
+      }
     },
     hideDropdown() {
       this.show = false;
