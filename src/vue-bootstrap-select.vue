@@ -1,50 +1,38 @@
 <template>
-    <div
-        v-on-clickaway="hideDropdown"
-        class="v-select">
-        <div
-            @click="show = !show"
-            class="v-select-toggle">
-            <div>
-                {{ selectedValue ? getOptionLabel(selectedValue) : labelTitle }}
-            </div>
-            <div class="arrow-down"></div>
-        </div>
-        <div
-            v-show="show"
-            class="v-dropdown-container">
-            <div
-              v-show="searchable"
-              class="bs-searchbox">
-              <input
-                :placeholder="labelSearchPlaceholder"
-                class="form-control"
-                type="text"
-                v-model="searchValue"
-                autofocus>              
-            </div>
-            <ul>
-                <li
-                    v-show="searchable && filteredProps.length === 0"
-                    class="v-dropdown-item">
-                    {{ labelNotFound }} "{{ searchValue }}"
-                </li>
-                <li
-                    v-if="showDefaultOption"
-                    class="v-dropdown-item disabled default-option">
-                    {{ labelTitle }}
-                </li>
-                <li
-                    v-for="(option, index) in filteredProps"
-                    :key="`v-select-${index}`"
-                    class="v-dropdown-item"
-                    :class="{'selected' : isSelectedOption(option, index)}"
-                    @click="onSelect(option)">
-                    {{ getOptionLabel(option) }}
-                </li>
-            </ul>
-        </div>
+  <div v-on-clickaway="hideDropdown" class="v-select">
+    <div @click="show = !show" class="v-select-toggle">
+      <div>{{ selectedValue ? getOptionLabel(selectedValue) : labelTitle }}</div>
+      <div class="arrow-down"></div>
     </div>
+    <div v-show="show" class="v-dropdown-container">
+      <div v-show="searchable" class="bs-searchbox">
+        <input
+          :placeholder="labelSearchPlaceholder"
+          class="form-control"
+          type="text"
+          v-model="searchValue"
+          autofocus
+        >
+      </div>
+      <ul>
+        <li
+          v-show="searchable && filteredProps.length === 0"
+          class="v-dropdown-item"
+        >{{ labelNotFound }} "{{ searchValue }}"</li>
+        <li
+          v-if="showDefaultOption"
+          class="v-dropdown-item disabled default-option"
+        >{{ labelTitle }}</li>
+        <li
+          v-for="(option, index) in filteredProps"
+          :key="`v-select-${index}`"
+          class="v-dropdown-item"
+          :class="{'selected' : isSelectedOption(option, index)}"
+          @click="onSelect(option)"
+        >{{ getOptionLabel(option) }}</li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
