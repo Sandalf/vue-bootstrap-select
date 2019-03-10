@@ -1,9 +1,12 @@
 <template>
-  <div v-on-clickaway="hideDropdown" class="v-select">
-    <div @click="show = !show" class="v-select-toggle">
-      <div>{{ selectedValue ? getOptionLabel(selectedValue) : labelTitle }}</div>
+  <div
+    v-on-clickaway="hideDropdown"
+    @keyup.esc="onEscape"
+    class="v-select">
+    <button @click="show = !show" class="v-select-toggle">
+      <div>{{ title }}</div>
       <div class="arrow-down"></div>
-    </div>
+    </button>
     <div v-show="show" class="v-dropdown-container">
       <div v-show="searchable" class="bs-searchbox">
         <input
@@ -118,6 +121,9 @@ export default {
       this.hideDropdown();
       this.$emit("input", option);
     },
+    onEscape() {
+      this.hideDropdown();
+    },
     hideDropdown() {
       this.show = false;
       this.searchValue = "";
@@ -155,27 +161,14 @@ ul {
   background-color: #fff;
   background-clip: padding-box;
   padding: 0px;
-  margin: 0px;
+  margin: 2px 0px 0px 0px;
 }
 
 .v-select {
   position: relative;
   width: 100%;
   height: 30px;
-  background-color: #f8f9fa;
-  border-color: #f8f9fa;
-  border-radius: 0.25rem;
-  line-height: 1.5;
-  color: #212529;
-  font-size: 12px;
-  transition: background-color, border-color, box-shadow, 0.15s ease-in-out;
-  font-family: inherit, sans-serif;
   cursor: pointer;
-
-  &:hover {
-    background-color: #e2e6ea;
-    border-color: #dae0e5;
-  }
 }
 
 .v-select-toggle {
@@ -183,6 +176,25 @@ ul {
   justify-content: space-between;
   user-select: none;
   padding: 0.375rem 0.75rem;
+  color: #212529;
+  background-color: #f8f9fa;
+  border-color: #d3d9df;
+  width: 100%;
+  text-align: right;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 12px;
+  font-family: inherit, sans-serif;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: background-color, border-color, box-shadow, 0.15s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+  }
 }
 
 .arrow-down {
