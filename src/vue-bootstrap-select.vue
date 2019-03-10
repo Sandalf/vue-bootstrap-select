@@ -38,8 +38,8 @@
                     v-for="(option, index) in filteredProps"
                     :key="`v-select-${index}`"
                     class="v-dropdown-item"
-                    :class="{'selected' : selectedValue && option === selectedValue}"
-                    @click="handleSelect(option)">
+                    :class="{'selected' : isSelectedOption(option, index)}"
+                    @click="onSelect(option)">
                     {{ getOptionLabel(option) }}
                 </li>
             </ul>
@@ -95,10 +95,16 @@ export default {
     return {
       show: false,
       selectedValue: this.value,
-      searchValue: ""
+      searchValue: "",
+      typeAheadPointer: -1
     };
   },
   computed: {
+    title() {
+      return this.selectedValue
+        ? this.getOptionLabel(this.selectedValue)
+        : this.labelTitle;
+    },
     filteredProps() {
       if (this.searchable && this.searchValue.length > 0) {
         return this.options.filter(item => {
@@ -119,7 +125,7 @@ export default {
     }
   },
   methods: {
-    handleSelect(option) {
+    onSelect(option) {
       this.selectedValue = option;
       this.hideDropdown();
       this.$emit("input", option);
@@ -133,6 +139,12 @@ export default {
         return option[this.textProp];
       }
       return option;
+    },
+    isSelectedOption(option, index) {
+      if (this.typeAheadPointer === -1) {
+        return this.selectedValue && option === this.selectedValue;
+      }
+      return this.typeAheadPointer === index;
     }
   }
 };
@@ -141,6 +153,21 @@ export default {
 <style lang="scss" scoped>
 * {
   box-sizing: border-box;
+}
+
+input {
+  width: 100%;
+}
+
+ul {
+  font-size: 12px;
+  color: #424242;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  padding: 0px;
+  margin: 0px;
 }
 
 .v-select {
@@ -156,11 +183,11 @@ export default {
   transition: background-color, border-color, box-shadow, 0.15s ease-in-out;
   font-family: inherit, sans-serif;
   cursor: pointer;
-}
 
-.v-select:hover {
-  background-color: #e2e6ea;
-  border-color: #dae0e5;
+  &:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+  }
 }
 
 .v-select-toggle {
@@ -200,71 +227,46 @@ export default {
   z-index: 1000;
 }
 
-ul {
-  font-size: 12px;
-  color: #424242;
-  text-align: left;
-  list-style: none;
-  background-color: #fff;
-  background-clip: padding-box;
-  padding: 0px;
-  margin: 0px;
-}
-
 .v-dropdown-item {
+  text-decoration: none;
   line-height: 25px;
   padding: 0.5rem 1.25rem;
   user-select: none;
-}
 
-.v-dropdown-item:hover:not(.default-option) {
-  text-decoration: none;
-  background-color: #f8f9fa;
-}
+  &:hover:not(.default-option) {
+    background-color: #f8f9fa;
+  }
 
-.v-dropdown-item.disabled {
-  color: #9a9b9b;
-}
+  &.disabled {
+    color: #9a9b9b;
+  }
 
-.v-dropdown-item.selected {
-  background-color: #007bff;
-  color: #fff;
-}
+  &.selected {
+    background-color: #007bff;
+    color: #fff;
 
-.v-dropdown-item.selected:hover {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.search-container {
-  padding: 0.5rem 1.25rem;
-}
-
-input {
-  width: 100%;
-}
-
-.form-control {
-  display: block;
-  width: 100%;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    &:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+  }
 }
 
 .bs-searchbox {
   padding: 4px 8px;
 
   .form-control {
-    margin-bottom: 0;
+    display: block;
     width: 100%;
-    float: none;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
 }
 </style>
