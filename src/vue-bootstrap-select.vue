@@ -5,8 +5,9 @@
     @keydown.up.prevent="typeAheadUp"
     @keydown.down.prevent="typeAheadDown"
     @keydown.enter.prevent="typeAheadSelect"
-    class="v-select">
-    <button @click="show = !show" class="v-select-toggle">
+    class="v-select"
+    :class="{'disabled': disabled}">
+    <button @click="toggle" class="v-select-toggle">
       <div>{{ title }}</div>
       <div class="arrow-down"></div>
     </button>
@@ -48,6 +49,10 @@ export default {
   name: "VSelect",
   mixins: [clickaway],
   props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     labelTitle: {
       type: String,
       default: "Nothing selected"
@@ -167,6 +172,11 @@ export default {
         return this.selectedValue && option === this.selectedValue;
       }
       return this.typeAheadPointer === index;
+    },
+    toggle() {
+      if (!this.disabled) {
+        this.show = !this.show;
+      }
     }
   }
 };
@@ -197,6 +207,21 @@ ul {
   width: 100%;
   height: 30px;
   cursor: pointer;
+
+  &.disabled {
+    cursor: not-allowed;
+
+    .v-select-toggle {
+      background-color: #f8f9fa;
+      border-color: #f8f9fa;
+      opacity: 0.65;
+      cursor: not-allowed;
+
+      &:focus {
+        outline: 0 !important;
+      }
+    }
+  }
 }
 
 .v-select-toggle {

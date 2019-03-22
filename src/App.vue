@@ -7,8 +7,12 @@
         <input type="checkbox" v-model="searchableName">
         searchable
       </div>
+      <div>
+        <input type="checkbox" v-model="disabledName">
+        disabled
+      </div>
     </div>
-    <VSelect v-model="selectedName" :options="names" :searchable="searchableName" />
+    <VSelect v-model="selectedName" :options="names" :searchable="searchableName" :disabled="disabledName"/>
     <h2>Array of objects</h2>
     <div class="options">
       <p><b>Options:</b></p>
@@ -16,8 +20,12 @@
         <input type="checkbox" v-model="searchableContinent">
         searchable
       </div>
+      <div>
+        <input type="checkbox" v-model="disabledContinent">
+        disabled
+      </div>
     </div>
-    <VSelect v-model="selectedContinent" :options="contients" :searchable="searchableContinent" />
+    <VSelect v-model="selectedContinent" :options="contients" :searchable="searchableContinent" :disabled="disabledContinent"/>
   </div>
 </template>
 
@@ -47,8 +55,10 @@ export default {
       ],
       selectedName: null,
       searchableName: false,
+      disabledName: false,
       selectedContinent: null,
-      searchableContinent: false
+      searchableContinent: false,
+      disabledContinent: false
     };
   }
 };
