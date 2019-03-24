@@ -34,7 +34,7 @@
           v-for="(option, index) in filteredOptions"
           :key="`v-select-${index}`"
           class="v-dropdown-item"
-          :class="{'selected' : isSelectedOption(option, index)}"
+          :class="{'selected' : isSelectedOption(option, index), 'disabled': option.disabled}"
           @click="onSelect(option, index)"
         >{{ getOptionLabel(option) }}</li>
       </ul>
@@ -121,14 +121,22 @@ export default {
         });
       }
       return this.options;
+    },
+    reversedOptions() {
+      return [...this.filteredOptions].reverse();
+    },
+    lastOptionIndex() {
+      return this.filteredOptions.length - 1;
     }
   },
   methods: {
     onSelect(option, index) {
-      this.selectedValue = option;
-      this.typeAheadPointer = index;
-      this.hideDropdown();
-      this.$emit("input", option);
+      if (!option.disabled) {
+        this.selectedValue = option;
+        this.typeAheadPointer = index;
+        this.hideDropdown();
+        this.$emit("input", option);
+      }
     },
     onEscape() {
       this.hideDropdown();
@@ -138,15 +146,41 @@ export default {
         this.show = true;
       }
       if (this.typeAheadPointer > 0) {
-        this.typeAheadPointer--;
+        const nextPointer = this.typeAheadPointer - 1;
+        const option = this.filteredOptions[nextPointer];
+        const isDisabled = option ? option.disabled || false : false;
+        if (!isDisabled) {
+          this.typeAheadPointer--;
+        } else {
+          this.typeAheadPointer--;
+          this.typeAheadUp();
+        }
+      } else {
+        const nextEnabledOption = this.reversedOptions.findIndex(
+          o => o.disabled !== true
+        );
+        this.typeAheadPointer = this.lastOptionIndex - nextEnabledOption;
       }
     },
     typeAheadDown() {
       if (!this.show) {
         this.show = true;
       }
-      if (this.typeAheadPointer < this.filteredOptions.length - 1) {
-        this.typeAheadPointer++;
+      if (this.typeAheadPointer < this.lastOptionIndex) {
+        const nextPointer = this.typeAheadPointer + 1;
+        const option = this.filteredOptions[nextPointer];
+        const isDisabled = option ? option.disabled || false : false;
+        if (!isDisabled) {
+          this.typeAheadPointer++;
+        } else {
+          this.typeAheadPointer++;
+          this.typeAheadDown();
+        }
+      } else {
+        const nextEnabledOption = this.filteredOptions.findIndex(
+          o => o.disabled !== true
+        );
+        this.typeAheadPointer = nextEnabledOption;
       }
     },
     typeAheadSelect() {
@@ -301,6 +335,14 @@ ul {
     &:hover {
       background-color: #007bff;
       color: #fff;
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: #fff;
     }
   }
 }

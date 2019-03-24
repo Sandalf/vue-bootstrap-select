@@ -4,28 +4,36 @@
     <div class="options">
       <p><b>Options:</b></p>
       <div>
-        <input type="checkbox" v-model="searchableName">
-        searchable
-      </div>
-      <div>
         <input type="checkbox" v-model="disabledName">
         disabled
       </div>
+      <div>
+        <input type="checkbox" v-model="searchableName">
+        searchable
+      </div>
     </div>
-    <VSelect v-model="selectedName" :options="names" :searchable="searchableName" :disabled="disabledName"/>
+    <VSelect
+      v-model="selectedName"
+      :options="names"
+      :disabled="disabledName"
+      :searchable="searchableName"/>
     <h2>Array of objects</h2>
     <div class="options">
       <p><b>Options:</b></p>
       <div>
-        <input type="checkbox" v-model="searchableContinent">
-        searchable
-      </div>
-      <div>
         <input type="checkbox" v-model="disabledContinent">
         disabled
       </div>
+      <div>
+        <input type="checkbox" v-model="searchableContinent">
+        searchable
+      </div>      
     </div>
-    <VSelect v-model="selectedContinent" :options="contients" :searchable="searchableContinent" :disabled="disabledContinent"/>
+    <VSelect
+      v-model="selectedContinent"
+      :options="contients"
+      :disabled="disabledContinent"
+      :searchable="searchableContinent"/>
   </div>
 </template>
 
@@ -51,7 +59,8 @@ export default {
         { value: 1, text: "America" },
         { value: 2, text: "Asia" },
         { value: 3, text: "Europe" },
-        { value: 4, text: "Oceania" }
+        { value: 4, text: "Oceania" },
+        { value: 5, text: "Antartica", disabled: true }
       ],
       selectedName: null,
       searchableName: false,
