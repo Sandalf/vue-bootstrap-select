@@ -34,7 +34,7 @@
           v-for="(option, index) in filteredOptions"
           :key="`v-select-${index}`"
           class="v-dropdown-item"
-          :class="{'selected' : isSelectedOption(option, index), 'disabled': option.disabled}"
+          :class="{'selected' : isSelectedOption(option, index), 'disabled': option[disabledProp]}"
           @click="onSelect(option, index)"
         >{{ getOptionLabel(option) }}</li>
       </ul>
@@ -52,6 +52,10 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    disabledProp: {
+      type: String,
+      default: "disabled"
     },
     labelTitle: {
       type: String,
@@ -131,7 +135,7 @@ export default {
   },
   methods: {
     onSelect(option, index) {
-      if (!option.disabled) {
+      if (!option[this.disabledProp]) {
         this.selectedValue = option;
         this.typeAheadPointer = index;
         this.hideDropdown();
@@ -148,7 +152,7 @@ export default {
       if (this.typeAheadPointer > 0) {
         const nextPointer = this.typeAheadPointer - 1;
         const option = this.filteredOptions[nextPointer];
-        const isDisabled = option ? option.disabled || false : false;
+        const isDisabled = option ? option[this.disabledProp] || false : false;
         if (!isDisabled) {
           this.typeAheadPointer--;
         } else {
@@ -157,7 +161,7 @@ export default {
         }
       } else {
         const nextEnabledOption = this.reversedOptions.findIndex(
-          o => o.disabled !== true
+          o => o[this.disabledProp] !== true
         );
         this.typeAheadPointer = this.lastOptionIndex - nextEnabledOption;
       }
@@ -169,7 +173,7 @@ export default {
       if (this.typeAheadPointer < this.lastOptionIndex) {
         const nextPointer = this.typeAheadPointer + 1;
         const option = this.filteredOptions[nextPointer];
-        const isDisabled = option ? option.disabled || false : false;
+        const isDisabled = option ? option[this.disabledProp] || false : false;
         if (!isDisabled) {
           this.typeAheadPointer++;
         } else {
@@ -178,7 +182,7 @@ export default {
         }
       } else {
         const nextEnabledOption = this.filteredOptions.findIndex(
-          o => o.disabled !== true
+          o => o[this.disabledProp] !== true
         );
         this.typeAheadPointer = nextEnabledOption;
       }

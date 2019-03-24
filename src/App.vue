@@ -33,6 +33,7 @@
       v-model="selectedContinent"
       :options="contients"
       :disabled="disabledContinent"
+      disabled-prop="inactive"
       :searchable="searchableContinent"/>
   </div>
 </template>
@@ -60,7 +61,7 @@ export default {
         { value: 2, text: "Asia" },
         { value: 3, text: "Europe" },
         { value: 4, text: "Oceania" },
-        { value: 5, text: "Antartica", disabled: true }
+        { value: 5, text: "Antartica" }
       ],
       selectedName: null,
       searchableName: false,
