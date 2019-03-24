@@ -1,6 +1,6 @@
 {
   "name": "@alfsnd/vue-bootstrap-select",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A vue version of bootstrap select",
   "license": "MIT",
   "repository": "Sandalf/vue-bootstrap-select",
@@ -27,7 +27,8 @@
     "build": "npm run build:unpkg & npm run build:es & npm run build:umd",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-bootstrap-select.umd.js",
     "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-bootstrap-select.esm.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-bootstrap-select.min.js"
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-bootstrap-select.min.js",
+    "ship": "npm publish --access public"
   },
   "dependencies": {
     "vue-clickaway": "^2.2.2"
