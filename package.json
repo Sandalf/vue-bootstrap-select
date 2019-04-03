@@ -1,6 +1,6 @@
 {
   "name": "@alfsnd/vue-bootstrap-select",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A vue version of bootstrap select",
   "license": "MIT",
   "repository": "Sandalf/vue-bootstrap-select",
