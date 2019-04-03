@@ -97,7 +97,7 @@ export default {
   data() {
     return {
       show: false,
-      selectedValue: this.value,
+      selectedValue: null,
       searchValue: "",
       typeAheadPointer: -1
     };
@@ -133,9 +133,20 @@ export default {
       return this.filteredOptions.length - 1;
     }
   },
+  watch: {
+    value: {
+      immediate: true,
+      handler(newVal) {
+        const index = this.options.findIndex(op =>
+          this.isEqualOption(op, newVal)
+        );
+        this.onSelect(newVal, index);
+      }
+    }
+  },
   methods: {
     onSelect(option, index) {
-      if (!option[this.disabledProp]) {
+      if (option && !option[this.disabledProp]) {
         this.selectedValue = option;
         this.typeAheadPointer = index;
         this.hideDropdown();
@@ -206,10 +217,19 @@ export default {
       return option;
     },
     isSelectedOption(option, index) {
-      if (this.typeAheadPointer === -1) {
-        return this.selectedValue && option === this.selectedValue;
+      if (this.typeAheadPointer === -1 && this.selectedValue) {
+        return this.isEqualOption(option, this.selectedValue);
       }
       return this.typeAheadPointer === index;
+    },
+    isEqualOption(a, b) {
+      if (a && b && typeof a === "object" && typeof b === "object") {
+        return (
+          a[this.textProp] === b[this.textProp] &&
+          a[this.valueProp] === b[this.valueProp]
+        );
+      }
+      return a === b;
     },
     toggle() {
       if (!this.disabled) {

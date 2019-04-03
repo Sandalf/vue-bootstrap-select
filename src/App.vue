@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <button @click="onClick">Click Me</button>
     <h2>Array of strings</h2>
     <div class="options">
       <p><b>Options:</b></p>
@@ -70,6 +71,12 @@ export default {
       searchableContinent: false,
       disabledContinent: false
     };
+  },
+  methods: {
+    onClick() {
+      this.selectedContinent = { value: 2, text: "Asia" };
+      this.selectedName = "John Doe";
+    }
   }
 };
 </script>
