@@ -152,6 +152,9 @@ export default {
         this.hideDropdown();
         this.$emit("input", option);
       }
+      else if(option === null) {
+        this.selectedValue = null;
+      }
     },
     onEscape() {
       this.hideDropdown();
