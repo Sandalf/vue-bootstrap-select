@@ -151,8 +151,7 @@ export default {
         this.typeAheadPointer = index;
         this.hideDropdown();
         this.$emit("input", option);
-      }
-      else if(option === null) {
+      } else if (option === null) {
         this.selectedValue = null;
       }
     },
