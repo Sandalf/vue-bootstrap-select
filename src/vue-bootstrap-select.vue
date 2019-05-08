@@ -12,7 +12,7 @@
       <div class="arrow-down"></div>
     </button>
     <div v-show="show" class="v-dropdown-container">
-      <div v-show="searchable" class="bs-searchbox">
+      <div v-show="searchable" class="v-bs-searchbox">
         <input
           :placeholder="labelSearchPlaceholder"
           class="form-control"
@@ -373,7 +373,7 @@ ul {
   }
 }
 
-.bs-searchbox {
+.v-bs-searchbox {
   padding: 4px 8px;
 
   .form-control {
