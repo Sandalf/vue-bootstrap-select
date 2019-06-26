@@ -140,10 +140,9 @@
             }
         },
         methods: {
-            async filteredOptions() {
-                if (this.searchable && this.searchValue.length > 0) {
-                    // If options is an array, plug it straight into the rendered items.
-                    if (Array.isArray(this.options)) {
+            filteredOptions: async () => {
+                if (Array.isArray(this.options)) {
+                    if (this.searchable && this.searchValue.length > 0) {
                         this.renderedItems = this.options.filter(item => {
                             if (typeof item === "object") {
                                 return (
@@ -156,17 +155,16 @@
                                 );
                             }
                         });
+                    } else {
+                        this.renderedItems = this.options;
                     }
                 }
-                if (Array.isArray(this.options)) {
-                    this.renderedItems = this.options;
-                    // Otherwise, if we got a function, run that function.
-                }
-                if (this.options instanceof Function) {
+                // Otherwise, if we got a function, run that function.
+                else if (this.options instanceof Function) {
                     let x = this.options({search: this.searchValue});
                     // If it is asynchronous, put the resolved value in the rendered items array.
                     if(x instanceof Promise) {
-                        this.renderedItems = (await x);
+                        x.then(result => {this.renderedItems = result});
                     } else {
                         // Otherwise, just put it in straight.
                         this.renderedItems = x;
