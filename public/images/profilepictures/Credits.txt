@@ -1,0 +1,5 @@
+(c) Thispersondoesnotexist.com
+
+Produced by a GAN (generative adversarial network)
+StyleGAN (Dec 2018) - Karras et al. and Nvidia
+Original GAN (2014) - Goodfellow et al.

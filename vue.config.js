@@ -4,7 +4,7 @@ module.exports = {
       .rule("eslint")
       .use("eslint-loader")
       .options({
-        fix: true
+        fix: false,
       });
   }
 };
