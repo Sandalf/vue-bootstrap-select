@@ -7,7 +7,7 @@
     @keydown.enter.prevent="typeAheadSelect"
     class="v-select"
     :class="{'disabled': disabled}">
-    <button @click="toggle" class="v-select-toggle">
+    <button @click="toggle" type="button" class="v-select-toggle">
       <div>{{ title }}</div>
       <div class="arrow-down"></div>
     </button>
@@ -150,7 +150,7 @@ export default {
         this.selectedValue = option;
         this.typeAheadPointer = index;
         this.hideDropdown();
-        this.$emit("input", option);
+        this.$emit("input", option, option[this.valueProp], index);
       } else if (option === null) {
         this.selectedValue = null;
       }
