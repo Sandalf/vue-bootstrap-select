@@ -53,3 +53,18 @@ And arrays of objects
 ```html
 <v-select :options="[{value: 1, text: 'Item 1'}, {value: 2, text: 'Item 2'}]" />
 ```
+
+## Props
+
+| parameter      | description                                                                                                                                    | type                                   | default      | acceptable value |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ------------ | ---------------- |
+| disabled | disables select | Boolean | false   | |
+| disabledProp | allows to disable specific options. If an option has this prop set to a truthy value it will disable the option. | String | disabled |  |
+| labelNotFound | text displayed when no option is found in the search results | String | No results matched ||
+| labelSearchPlaceholder | placeholder text for search input | String | Search | |
+| options | list of options | Array | [] | |
+| searchable | display search input | Boolean | false |  |
+| showDefaultOption | sets the select title is set as an option | Boolean | false | |
+| textProp | the option's prop that is displayed as the option's text | String | text | |
+| valueProp | the option's prop that is used to find the selected value | String | value |
+
