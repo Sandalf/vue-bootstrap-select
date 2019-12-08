@@ -8,8 +8,13 @@
     class="v-select"
     :class="{'disabled': disabled}">
     <button @click="toggle" type="button" class="v-select-toggle">
-      <div>{{ title }}</div>
-      <div class="arrow-down"></div>
+      <div class="container">
+        <div class="select">
+          <div class="options-title">{{ dropdownTitle }}</div>
+          <div class="selected-item">{{ title }}</div>
+        </div>
+        <div class="arrow-down"></div>
+      </div>
     </button>
     <div v-show="show" class="v-dropdown-container">
       <div v-show="searchable" class="v-bs-searchbox">
@@ -57,6 +62,10 @@ export default {
       type: String,
       default: "disabled"
     },
+    listTitle: {
+      type: String,
+      default: "Select from list"
+    },
     labelTitle: {
       type: String,
       default: "Nothing selected"
@@ -103,6 +112,9 @@ export default {
     };
   },
   computed: {
+    dropdownTitle() {
+      return this.listTitle;
+    },
     title() {
       return this.selectedValue
         ? this.getOptionLabel(this.selectedValue)
@@ -246,9 +258,16 @@ export default {
 * {
   box-sizing: border-box;
 }
+*:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.1rem rgba(136, 141, 169, 0.5);
+}
 
 input {
   width: 100%;
+  &:focus {
+    outline: none;
+  }
 }
 
 ul {
@@ -278,24 +297,19 @@ ul {
       cursor: not-allowed;
 
       &:focus {
-        outline: 0 !important;
+        outline: none;
       }
     }
   }
 }
 
 .v-select-toggle {
-  display: flex;
-  justify-content: space-between;
   user-select: none;
-  padding: 0.375rem 0.75rem;
+  padding: 0.75rem;
   color: #212529;
-  background-color: #f8f9fa;
-  border-color: #d3d9df;
   width: 100%;
-  text-align: right;
+  text-align: left;
   white-space: nowrap;
-  border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
   font-size: 12px;
   font-family: inherit, sans-serif;
@@ -303,25 +317,38 @@ ul {
   border-radius: 0.25rem;
   transition: background-color, border-color, box-shadow, 0.15s ease-in-out;
   cursor: pointer;
-
-  &:hover {
-    background-color: #e2e6ea;
-    border-color: #dae0e5;
+  border: 1px solid #e6ecf5;
+  background-color: transparent;
+}
+.container {
+  display: flex;
+  align-items: center;
+}
+.select {
+  width: 50%;
+  display: inline-block;
+  .selected-item {
+    padding: 5px 12px;
+    font-weight: bold;
+  }
+  .options-title {
+    color: #888da8;
+    text-transform: uppercase;
   }
 }
-
 .arrow-down {
+  width: 50%;
   display: inline-block;
   width: 0;
   height: 0;
   margin-left: 0.255em;
-  margin-top: 7px;
   vertical-align: 0.255em;
   content: "";
   border-top: 0.3em solid;
   border-right: 0.3em solid transparent;
   border-bottom: 0;
   border-left: 0.3em solid transparent;
+  margin-left: auto;
 }
 
 .v-dropdown-container {

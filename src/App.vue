@@ -14,10 +14,11 @@
     </div>
     <VSelect
       v-model="selectedName"
+      listTitle="Select form your followers"
       :options="names"
       :disabled="disabledName"
       :searchable="searchableName"/>
-    <h2>Array of objects</h2>
+    <h2 style="margin-top: 70px;">Array of objects</h2>
     <div class="options">
       <p><b>Options:</b></p>
       <div>
