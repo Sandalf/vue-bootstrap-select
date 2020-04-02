@@ -67,4 +67,5 @@ And arrays of objects
 | showDefaultOption | sets the select title is set as an option | Boolean | false | |
 | textProp | the option's prop that is displayed as the option's text | String | text | |
 | valueProp | the option's prop that is used to find the selected value | String | value |
+| filterFunction | a function that can be used to do own filtering | Function (options, searchValue) => filteredOptions | lowercase string comparison |
 

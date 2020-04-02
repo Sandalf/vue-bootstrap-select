@@ -92,6 +92,10 @@ export default {
     valueProp: {
       type: String,
       default: "value"
+    },
+    filterFunction: {
+      type: Function,
+      default: null
     }
   },
   data() {
@@ -110,6 +114,9 @@ export default {
     },
     filteredOptions() {
       if (this.searchable && this.searchValue.length > 0) {
+        if (this.filterFunction) {
+          return this.filterFunction(this.options, this.searchValue);
+        }
         return this.options.filter(item => {
           if (typeof item === "object") {
             return (
