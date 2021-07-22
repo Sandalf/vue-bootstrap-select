@@ -1,6 +1,6 @@
 <template>
   <div
-    v-on-clickaway="hideDropdown"
+    v-click-outside="hideDropdown"
     @keyup.esc="onEscape"
     @keydown.up.prevent="typeAheadUp"
     @keydown.down.prevent="typeAheadDown"
@@ -43,11 +43,25 @@
 </template>
 
 <script>
-import { mixin as clickaway } from "vue-clickaway";
 
 export default {
   name: "VSelect",
-  mixins: [clickaway],
+  directives: {
+    'click-outside': {
+      beforeMount: function (el, binding) {
+        const ourClickEventHandler = (event) => {
+          if (!el.contains(event.target) && el !== event.target) {
+            binding.value(event)
+          }
+        }
+        el.__vueClickEventHandler__ = ourClickEventHandler
+        document.addEventListener('click', ourClickEventHandler)
+      },
+      unmounted: function (el) {
+        document.removeEventListener('click', el.__vueClickEventHandler__)
+      }
+    }
+  },
   props: {
     disabled: {
       type: Boolean,
