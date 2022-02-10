@@ -42,7 +42,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "minimist": "^1.2.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "sass-loader": "^7.1.0",
     "rollup": "^0.66.2",
     "rollup-plugin-buble": "^0.19.2",
